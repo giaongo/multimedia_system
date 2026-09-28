@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Dash.js player</title>
+    <style>
+      video {
+        width: 640px;
+        height: 360px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <video id="videoPlayer" controls></video>
+    </div>
+    <script src="https://cdn.dashjs.org/v5.2.1/dash.all.debug.js"></script>
+    <script>
+      var player, duration, started; //NOTE: Do not edit this line and do not enclose this line inside a function (grader uses and needs access to these variables)
+      //TODO: Create a dashjs player and assign it to the "player" variable initialized above
+      const video = document.querySelector("#videoPlayer");
+      const url =
+        "http://cse4265-2026-103415657.ew.r.appspot.com/video/assignment_1/manifest.mpd";
+      player = dashjs.MediaPlayer().create();
+      //TODO: Update the player settings according to the ABR requirements above
+      player.updateSettings({
+        streaming: {
+          buffer: {
+            fastSwitchEnabled: false,
+          },
+
+          abr: {
+            initialBitrate: {
+              video: 1000,
+            },
+
+            minBitrate: {
+              video: 500,
+            },
+
+            rules: {
+              throughputRule: {
+                active: false,
+              },
+
+              bolaRule: {
+                active: true,
+              },
+            },
+          },
+        },
+      });
+      //TODO: Initialize the player and make it play your own MPD URL
+      player.initialize(video, url, true);
+    </script>
+  </body>
+</html>
