@@ -1,0 +1,9 @@
+{
+  "name": "cse4265-webrtc-signaling",
+  "version": "1.0.0",
+  "description": "CS-E4265 A3.2 signaling service. Deploy as-is; you do not need to edit this.",
+  "private": true,
+  "engines": { "node": "22" },
+  "dependencies": { "socket.io": "4.8.1" },
+  "scripts": { "start": "node index.js" }
+}

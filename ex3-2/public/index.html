@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CS-E4265 A3.2 — WebRTC peer</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 1rem;
+      }
+      video {
+        width: 320px;
+        height: 240px;
+        background: #222;
+        margin-right: 1rem;
+      }
+      pre {
+        background: #f4f4f4;
+        padding: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>WebRTC peer</h1>
+    <video id="localVideo" autoplay muted playsinline></video>
+    <video id="remoteVideo" autoplay playsinline></video>
+    <pre id="stats">not connected</pre>
+
+    <!-- The signaling service serves its own client library at this path. -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+    <script>
+      // Connect to the service that served this page. The grader calls connect() the same way,
+      // with the URL of your deployed service.
+      connect(window.location.origin);
+      console.log("CONNECTING");
+      setInterval(async function () {
+        try {
+          console.log("RUNNING STATS");
+          document.querySelector("#stats").textContent = JSON.stringify(
+            await stats(),
+            null,
+            1,
+          );
+        } catch (e) {
+          document.querySelector("#stats").textContent = String(e);
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
